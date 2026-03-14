@@ -1,1 +1,1 @@
-# fast-api-library-practice
+# fast-api-car-rental-practice
