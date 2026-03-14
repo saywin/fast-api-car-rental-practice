@@ -18,7 +18,7 @@ class FuelTypeEnum(enum.Enum):
 class Car(Base):
     __tablename__ = "cars"
 
-    id: Mapped[int] = mapped_column(primary_key=True, nullable=False, index=True)
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
     brand: Mapped[str] = mapped_column(String(255), index=True, nullable=False)
     model: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     year: Mapped[int] = mapped_column(Integer, nullable=False)
