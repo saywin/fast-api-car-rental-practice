@@ -4,7 +4,7 @@ from pydantic import EmailStr
 from sqlalchemy import String, DATETIME, func, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.database import Base
+from src.config import Base
 
 
 class User(Base):

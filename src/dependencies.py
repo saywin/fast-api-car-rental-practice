@@ -1,8 +1,5 @@
-from typing import Annotated
+from src.repositories.cars_repository import CarRepositories
+from src.services.car_services import CarServices
 
-from fastapi import Depends
-from sqlalchemy.orm import Session
-
-from src.database import get_db
-
-SessionDep = Annotated[Session, Depends(get_db)]
+repository_car = CarRepositories()
+CarServiceDep = CarServices(repository_car)

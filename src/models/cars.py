@@ -4,7 +4,7 @@ from decimal import Decimal
 from sqlalchemy import String, Integer, DECIMAL, CheckConstraint, Enum
 from sqlalchemy.orm import Mapped, mapped_column
 
-from src.database import Base
+from src.config import Base
 
 
 class FuelTypeEnum(enum.Enum):
