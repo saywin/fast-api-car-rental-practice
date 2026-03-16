@@ -50,17 +50,26 @@ class CarRepositories:
         return new_car
 
     @staticmethod
-    def update_car(session: SessionDep, car: CarUpdate, car_by_id: Car) -> Car:
+    async def update_car(session: SessionDep, car: CarUpdate, car_by_id: Car) -> Car:
         for key, value in car.model_dump(exclude_unset=True).items():
             setattr(car_by_id, key, value)
 
         session.add(car_by_id)
-        session.commit()
-        session.refresh(car_by_id)
+
+        try:
+            await session.flush()
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise
 
         return car_by_id
 
     @staticmethod
-    def delete_car(session: SessionDep, car_by_id: Car) -> None:
-        session.delete(car_by_id)
-        session.commit()
+    async def delete_car(session: SessionDep, car_by_id: Car) -> None:
+        try:
+            await session.delete(car_by_id)
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise

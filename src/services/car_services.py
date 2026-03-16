@@ -29,10 +29,10 @@ class CarServices:
         return new_car
 
 
-    def update_car(self, session: SessionDep, car: CarUpdate, car_by_id: Car):
-        changed_car = self.repositories.update_car(session=session, car=car, car_by_id=car_by_id)
+    async def update_car(self, session: SessionDep, car: CarUpdate, car_by_id: Car):
+        changed_car = await self.repositories.update_car(session=session, car=car, car_by_id=car_by_id)
 
         return changed_car
 
-    def delete_car(self, session: SessionDep, car_by_id: Car) -> None:
-        self.repositories.delete_car(session=session, car_by_id=car_by_id)
+    async def delete_car(self, session: SessionDep, car_by_id: Car) -> None:
+        await self.repositories.delete_car(session=session, car_by_id=car_by_id)

@@ -33,15 +33,15 @@ async def post_car(session: SessionDep, car: CarCreate) -> Car:
 
 
 @car_router.patch("/{car_id}", response_model=CarResponse)
-def update_car(session: SessionDep, car_id: int, car: CarUpdate) -> Car:
+async def update_car(session: SessionDep, car_id: int, car: CarUpdate) -> Car:
     service = CarServiceDep
-    car_by_id = get_car(session=session, car_id=car_id)
-    changed_car = service.update_car(session=session, car=car, car_by_id=car_by_id)
+    car_by_id = await get_car(session=session, car_id=car_id)
+    changed_car = await service.update_car(session=session, car=car, car_by_id=car_by_id)
     return changed_car
 
 @car_router.delete("/{car_id}")
-def delete_car(session: SessionDep, car_id: int) -> dict:
+async def delete_car(session: SessionDep, car_id: int) -> dict:
     service = CarServiceDep
-    car_by_id = get_car(session=session, car_id=car_id)
-    service.delete_car(session=session, car_by_id=car_by_id)
+    car_by_id = await get_car(session=session, car_id=car_id)
+    await service.delete_car(session=session, car_by_id=car_by_id)
     return {"result": f"Car with id: {car_id} successful delete"}
