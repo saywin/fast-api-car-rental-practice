@@ -19,9 +19,9 @@ async def get_cars(
 
 
 @car_router.get("/{car_id}", response_model=CarResponse)
-def get_car(session: SessionDep, car_id: int) -> Car:
+async def get_car(session: SessionDep, car_id: int) -> Car:
     service = CarServiceDep
-    car = service.get_car(session=session, car_id=car_id)
+    car = await service.get_car(session=session, car_id=car_id)
     return car
 
 

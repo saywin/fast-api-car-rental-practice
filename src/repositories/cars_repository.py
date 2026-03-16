@@ -31,8 +31,9 @@ class CarRepositories:
         return cars
 
     @staticmethod
-    def get_car(session: SessionDep,car_id: int) -> Car:
-        return session.get(Car, car_id)
+    async def get_car(session: SessionDep,car_id: int) -> Car:
+        car = await session.get(Car, car_id)
+        return car
 
     @staticmethod
     def create_car(session: SessionDep, car: CarCreate) -> Car:
