@@ -13,10 +13,10 @@ class CarRepositories:
         filters = []
 
         if filter_car.brand:
-            filters.append(Car.brand == filter_car.brand)
+            filters.append(Car.brand.contains(filter_car.brand))
 
         if filter_car.model:
-            filters.append(Car.model == filter_car.model)
+            filters.append(Car.model.contains(filter_car.model))
 
         if filter_car.max_year:
             filters.append(Car.year <= filter_car.max_year)
