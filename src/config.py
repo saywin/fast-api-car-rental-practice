@@ -15,7 +15,7 @@ class Base(DeclarativeBase):
     pass
 
 
-SessionLocal = async_sessionmaker(bind=async_engine)
+SessionLocal = async_sessionmaker(bind=async_engine, expire_on_commit=False)
 
 
 async def get_db():

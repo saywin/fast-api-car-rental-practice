@@ -26,9 +26,9 @@ async def get_car(session: SessionDep, car_id: int) -> Car:
 
 
 @car_router.post("/", response_model=CarResponse)
-def post_car(session: SessionDep, car: CarCreate) -> Car:
+async def post_car(session: SessionDep, car: CarCreate) -> Car:
     service = CarServiceDep
-    new_car = service.create_car(session=session, car=car)
+    new_car = await service.create_car(session=session, car=car)
     return new_car
 
 

@@ -36,11 +36,17 @@ class CarRepositories:
         return car
 
     @staticmethod
-    def create_car(session: SessionDep, car: CarCreate) -> Car:
+    async def create_car(session: SessionDep, car: CarCreate) -> Car:
         new_car = Car(**car.model_dump())
         session.add(new_car)
-        session.commit()
-        session.refresh(new_car)
+
+        try:
+            await session.flush()
+            await session.commit()
+        except Exception:
+            await session.rollback()
+            raise
+
         return new_car
 
     @staticmethod

@@ -23,8 +23,8 @@ class CarServices:
 
         return car
 
-    def create_car(self, session: SessionDep, car: CarCreate):
-        new_car = self.repositories.create_car(session=session, car=car)
+    async def create_car(self, session: SessionDep, car: CarCreate):
+        new_car = await self.repositories.create_car(session=session, car=car)
 
         return new_car
 
