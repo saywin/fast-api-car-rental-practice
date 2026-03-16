@@ -9,12 +9,13 @@ car_router = APIRouter(prefix="/cars")
 
 
 @car_router.get("/", response_model=list[CarResponse])
-def get_cars(
+async def get_cars(
     session: SessionDep,
     filter_car: CarFilter = Depends(),
 ) -> list[Car]:
     service = CarServiceDep
-    return service.get_cars(session=session, filter_car=filter_car)
+    cars = await service.get_cars(session=session, filter_car=filter_car)
+    return cars
 
 
 @car_router.get("/{car_id}", response_model=CarResponse)

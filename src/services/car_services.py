@@ -11,8 +11,8 @@ class CarServices:
         self.repositories = repositories
 
 
-    def get_cars(self, session: SessionDep, filter_car: CarFilter):
-        cars = self.repositories.get_cars(session=session, filter_car=filter_car)
+    async def get_cars(self, session: SessionDep, filter_car: CarFilter):
+        cars = await self.repositories.get_cars(session=session, filter_car=filter_car)
         return cars
 
     def get_car(self, session: SessionDep, car_id: int):

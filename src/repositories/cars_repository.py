@@ -1,3 +1,4 @@
+from fastapi import Depends
 from sqlalchemy import select
 
 from src.config import SessionDep
@@ -7,7 +8,7 @@ from src.schemas.car_schemas import CarCreate, CarUpdate, CarFilter
 
 class CarRepositories:
     @staticmethod
-    def get_cars(session: SessionDep, filter_car: CarFilter) -> list[Car]:
+    async def get_cars(session: SessionDep, filter_car: CarFilter = Depends()) -> list[Car]:
         stmt = select(Car)
         filters = []
 
@@ -26,7 +27,7 @@ class CarRepositories:
         if filters:
             stmt = stmt.where(*filters)
 
-        cars = session.scalars(stmt).all()
+        cars = (await session.scalars(stmt)).all()
         return cars
 
     @staticmethod
