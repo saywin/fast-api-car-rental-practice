@@ -2,8 +2,8 @@ import os
 from typing import Annotated
 
 from fastapi import Depends
-from sqlalchemy.ext.asyncio import create_async_engine
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, Session
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import DeclarativeBase, Session
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,15 +15,13 @@ class Base(DeclarativeBase):
     pass
 
 
-SessionLocal = sessionmaker(bind=async_engine)
+SessionLocal = async_sessionmaker(bind=async_engine)
 
 
-def get_db():
-    session = SessionLocal()
-    try:
+async def get_db():
+    async with SessionLocal() as session:
         yield session
-    finally:
-        session.close()
 
 
-SessionDep = Annotated[Session, Depends(get_db)]
+
+SessionDep = Annotated[AsyncSession, Depends(get_db)]
